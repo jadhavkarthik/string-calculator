@@ -16,21 +16,30 @@ Problem Statement:
 4 . Support different delimiters:
 
   To change the delimiter, the beginning of the string will contain a separate line that looks like this: "//[delimiter]\n[numbers…]". For example, "//;\n1;2" where the delimiter is ";" should return 3.
-  Calling add with a negative number will throw an exception: "negative numbers not allowed <negative_number>".
+  
+5. Calling add with a negative number will throw an exception: "negative numbers not allowed <negative_number>".
 
-If there are multiple negative numbers, show all of them in the exception message, separated by commas.
+  If there are multiple negative numbers, show all of them in the exception message, separated by commas.
 */
 class StringCalculator {
   public static add(numbers: string): number {
-    if (!numbers){
+    if (!numbers) {
       return 0;
     }
-    const numbersInt:  number[] = numbers.split(",").map(number => parseInt(number));
+    const numbersInt: number[] = numbers.split(",").map(number => parseInt(number));
     return numbersInt.reduce((acc: number, curr: number) => acc + curr, 0);
+  }
+
+  public static addBiggerNumbers(numbers: string): bigint {
+    if (!numbers) {
+      return BigInt(0);
+    }
+    const numbersBigInt: bigint[] = numbers.split(",").map(number => BigInt(number));
+    return numbersBigInt.reduce((acc: bigint, curr: bigint) => acc + curr, BigInt(0));
   }
 }
 
-// const val = StringCalculator.add("2,3,4")
-// console.log(val);
+const val = StringCalculator.add("2,3,4");
+console.log({ val });
 
-export default StringCalculator
+export default StringCalculator;
