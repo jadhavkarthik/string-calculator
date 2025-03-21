@@ -26,20 +26,25 @@ class StringCalculator {
     if (!numbers) {
       return 0;
     }
-    const numbersInt: number[] = numbers.split(",").map(number => parseInt(number));
+    const numbersInt: number[] = numbers.split(/[,;\t|\n]/).map(number => parseInt(number));
     return numbersInt.reduce((acc: number, curr: number) => acc + curr, 0);
   }
 
+  /* 
+  aviods precision error in case of large numbers 
+  JAVASCRIPT number range is between 2^52-1 and -2^52-1
+  To support bigger number than this, it uses BigInt
+  */
   public static addBiggerNumbers(numbers: string): bigint {
     if (!numbers) {
       return BigInt(0);
     }
-    const numbersBigInt: bigint[] = numbers.split(",").map(number => BigInt(number));
+    const numbersBigInt: bigint[] = numbers.split(/[,;\t|\n]/).map(number => BigInt(number));
     return numbersBigInt.reduce((acc: bigint, curr: bigint) => acc + curr, BigInt(0));
   }
 }
 
-const val = StringCalculator.add("2,3,4");
+const val = StringCalculator.add("1,2\n3,4|5;6\t7");
 console.log({ val });
 
 export default StringCalculator;
