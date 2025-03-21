@@ -68,7 +68,4 @@ class StringCalculator {
   }
 }
 
-const val = StringCalculator.add("1,2\n3,-4|5;6\t-7");
-console.log({ val });
-
 export default StringCalculator;
