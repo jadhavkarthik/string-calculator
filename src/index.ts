@@ -22,7 +22,7 @@ Problem Statement:
   If there are multiple negative numbers, show all of them in the exception message, separated by commas.
 */
 class StringCalculator {
-  public static add(numbers: string): number {
+  public static add(numbers: string | null | undefined): number {
     if (!numbers) {
       return 0;
     }
@@ -48,7 +48,7 @@ class StringCalculator {
   JAVASCRIPT number range is between 2^52-1 and -2^52-1
   To support bigger number than this, it uses BigInt
   */
-  public static addBiggerNumbers(numbers: string): bigint {
+  public static addBiggerNumbers(numbers: string | null | undefined): bigint {
     if (!numbers) {
       return BigInt(0);
     }
@@ -58,12 +58,11 @@ class StringCalculator {
       if (bigNum < 0) {
         negativeNumbers.push(bigNum);
       }
-      if (negativeNumbers.length > 0) {
-        throw new Error(`The following negative numbers are not allowed: ${negativeNumbers.join(", ")}`);
-      }
-
       return bigNum;
     });
+    if (negativeNumbers.length > 0) {
+      throw new Error(`The following negative numbers are not allowed: ${negativeNumbers.join(", ")}`);
+    }
     return numbersBigInt.reduce((acc: bigint, curr: bigint) => acc + curr, BigInt(0));
   }
 }
