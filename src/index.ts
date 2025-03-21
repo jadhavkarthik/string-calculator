@@ -27,7 +27,7 @@ class StringCalculator {
       return 0;
     }
     const negativeNumbers: number[] = [];
-    const numbersInt: number[] = numbers.split(/[,;\t|\n]/).map(number => {
+    const numbersInt: number[] = numbers.split(/[,;\t|\n" "]/).map(number => {
       const num = parseInt(number);
       if (isNaN(num)) {
         throw new Error(`NaN(Not-A-Number) is not allowed`);
@@ -53,8 +53,8 @@ class StringCalculator {
       return BigInt(0);
     }
     const negativeNumbers: bigint[] = [];
-    const numbersBigInt: bigint[] = numbers.split(/[,;\t|\n]/).map(number => {
-      const bigNum = BigInt(number);
+    const numbersBigInt: bigint[] = numbers.split(/[,;\t|\n" "]/).map(number => {
+      const bigNum = BigInt(number.trim());
       if (bigNum < 0) {
         negativeNumbers.push(bigNum);
       }
