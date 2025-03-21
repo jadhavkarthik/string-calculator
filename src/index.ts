@@ -26,7 +26,16 @@ class StringCalculator {
     if (!numbers) {
       return 0;
     }
-    const numbersInt: number[] = numbers.split(/[,;\t|\n]/).map(number => parseInt(number));
+    const numbersInt: number[] = numbers.split(/[,;\t|\n]/).map(number => {
+      const num = parseInt(number);
+      if (isNaN(num)) {
+        throw new Error(`NaN(Not-A-Number) is not allowed`);
+      }
+      if (num < 0) {
+        throw new Error(`negative numbers not allowed ${num}`);
+      }
+      return num;
+    });
     return numbersInt.reduce((acc: number, curr: number) => acc + curr, 0);
   }
 
@@ -39,12 +48,18 @@ class StringCalculator {
     if (!numbers) {
       return BigInt(0);
     }
-    const numbersBigInt: bigint[] = numbers.split(/[,;\t|\n]/).map(number => BigInt(number));
+    const numbersBigInt: bigint[] = numbers.split(/[,;\t|\n]/).map(number => {
+      const bigNum = BigInt(number);
+      if (bigNum < 0) {
+        throw new Error(`negative numbers not allowed ${bigNum}`);
+      }
+      return bigNum;
+    });
     return numbersBigInt.reduce((acc: bigint, curr: bigint) => acc + curr, BigInt(0));
   }
 }
 
-const val = StringCalculator.add("1,2\n3,4|5;6\t7");
+const val = StringCalculator.add("1,2\n3,4|5;6\t-7");
 console.log({ val });
 
 export default StringCalculator;
